@@ -4,7 +4,7 @@ var path = require('path');
 var nameArray = [];
 
 function randomIndex(array){
-    var index = randomNumber(0, array.length);
+    var index = randomNumber(0, array.length - 1);
     return array[index];
 }
 
@@ -13,12 +13,17 @@ function randomNumber(min, max) {
 }
 
 router.get('/', function(req, res) {
-    res.send({message: 'hello'});
+    res.send(nameArray);
+});
+
+router.get('/random', function(req, res) {
+    res.send(randomIndex(nameArray));
 });
 
 router.post('/', function(req, res) {
-    console.log(req.body);
-    res.send(req.body);
+    nameArray.push(req.body.name);
+    console.log(nameArray);
+    res.send(nameArray);
 });
 
 module.exports = router;

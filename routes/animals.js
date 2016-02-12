@@ -4,7 +4,7 @@ var path = require('path');
 var animalArray = [];
 
 function randomIndex(array){
-    var index = randomNumber(0, array.length);
+    var index = randomNumber(0, array.length - 1);
     return array[index];
 }
 
@@ -13,12 +13,17 @@ function randomNumber(min, max) {
 }
 
 router.get('/', function(req, res) {
-    res.send({message: 'hello'});
+    res.send(animalArray);
+});
+
+router.get('/random', function(req, res) {
+    res.send(randomIndex(animalArray));
 });
 
 router.post('/', function(req, res) {
-    console.log(req.body);
-    res.send(req.body);
+    animalArray.push(req.body.spiritAnimal);
+    console.log(animalArray);
+    res.send(animalArray);
 });
 
 module.exports = router;
